@@ -3,7 +3,14 @@ package lotto
 class Lotto(private val numbers: List<Int>) {
     init {
         require(numbers.size == 6)
+        require(numbers.distinct() == numbers)
     }
 
-    // TODO: 추가 기능 구현
+    fun display() {
+        println(numbers)
+    }
+
+    fun match(matcher: Set<Int>): Set<Int> {
+        return numbers.toSet().intersect(matcher)
+    }
 }
