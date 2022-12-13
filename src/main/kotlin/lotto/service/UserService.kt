@@ -2,6 +2,8 @@ package lotto.service
 
 import camp.nextstep.edu.missionutils.Console
 import camp.nextstep.edu.missionutils.Randoms
+import lotto.common.ExceptionMessage
+import lotto.common.ExceptionMessage.*
 import lotto.domain.Lotto
 import kotlin.system.exitProcess
 
@@ -23,11 +25,11 @@ class UserService {
         try {
             val money = moneyInput.toLong()
             if (money.mod(1000) > 0) {
-                throw IllegalArgumentException("[ERROR] 구입 금액은 1000원 단위여야 합니다.")
+                throw IllegalArgumentException(NOT_DIVIDED_MONEY_EXCEPTION.message)
             }
             return money
         } catch (exception: NumberFormatException) {
-            println("[ERROR] 구입 금액은 숫자여야 합니다.")
+            println(NUMBER_FORMAT_EXCEPTION.message)
             exitProcess(1)
         } catch (exception: IllegalArgumentException) {
             println(exception.message)

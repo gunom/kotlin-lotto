@@ -1,6 +1,8 @@
 package lotto.service
 
 import camp.nextstep.edu.missionutils.Console
+import lotto.common.ExceptionMessage
+import lotto.common.ExceptionMessage.*
 import lotto.domain.Lotto
 import lotto.domain.Prize
 import kotlin.system.exitProcess
@@ -42,12 +44,13 @@ class GameService {
         try {
             val winningNumber = winningInput.split(",").map { it.toInt() }
             //validate win number
-            if (winningNumber.distinct() != winningNumber) throw IllegalArgumentException("[ERROR] 당첨 번호는 중복되지 않아야 합니다.")
-            if (winningNumber.filter { it in 1..45 } != winningNumber) throw IllegalArgumentException("[ERROR] 당첨 번호는 1부터 45 사이의 숫자여야 합니다.")
-            if (winningNumber.size != 6) throw IllegalArgumentException("[ERROR] 당첨 번호는 6자리여야 합니다.")
+            if (winningNumber.distinct() != winningNumber) throw IllegalArgumentException(
+                DUPLICATE_WINNING_NUMBER_EXCEPTION.message)
+            if (winningNumber.filter { it in 1..45 } != winningNumber) throw IllegalArgumentException(WINNING_NUMBER_BOUNDARY_EXCEPTION.message)
+            if (winningNumber.size != 6) throw IllegalArgumentException(WINNING_NUMBER_LENGTH_EXCEPTION.message)
             return winningNumber
         } catch (exception: NumberFormatException) {
-            println("[ERROR] 당첨 번호는 숫자여야 합니다.")
+            println(WINNING_NUMBER_FORMAT_EXCEPTION.message)
             exitProcess(1)
         } catch (exception: IllegalArgumentException) {
             println(exception.message)
@@ -61,14 +64,15 @@ class GameService {
     ): Int {
         try {
             val bonusNumber = bonusNumberInput.toInt()
-            if (bonusNumber !in 1..45) throw IllegalArgumentException("[ERROR] 보너스 번호는 1부터 45 사이의 숫자여야 합니다.")
-            if (winningNumber.contains(bonusNumber)) throw IllegalArgumentException("[ERROR] 보너스 번호는 당첨번호와 중복될 수 없습니다.")
+            if (bonusNumber !in 1..45) throw IllegalArgumentException(NUMBER_BOUNDARY_EXCEPTION.message)
+            if (winningNumber.contains(bonusNumber)) throw IllegalArgumentException(
+                DUPLICATE_WITH_WINNING_NUMBER_EXCEPTION.message)
             return bonusNumber
         } catch (exception: IllegalArgumentException) {
             println(exception.message)
             exitProcess(1)
         } catch (exception: NumberFormatException) {
-            println("[ERROR] 보너스 번호는 숫자여야 합니다.")
+            println(BONUS_NUMBER_FORMAT_EXCEPTION.message)
             exitProcess(1)
         }
     }
