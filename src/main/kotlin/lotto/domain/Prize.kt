@@ -1,4 +1,4 @@
-package lotto
+package lotto.domain
 
 enum class Prize(val number: Int, val reward: Long) {
     FIRST_PRIZE(number = 7, reward = 2000000000),
