@@ -10,14 +10,9 @@ class UserService {
         return validate(Console.readLine())
     }
 
-    fun getLotto(money: Long): MutableList<Lotto> {
+    fun getLotto(money: Long): List<Lotto> {
         val ticket = money.div(1000)
-        val lottoList = mutableListOf<Lotto>()
-        for (i in 1..ticket) {
-            val numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6)
-            lottoList.add(Lotto(numbers))
-        }
-        return lottoList
+        return (1..ticket).map { Lotto(Randoms.pickUniqueNumbersInRange(1, 45, 6)) }
     }
 
     fun getPortfolio(money: Long, prize: Long): Double {
