@@ -6,13 +6,14 @@ import lotto.service.UserService
 
 class LottoFacade {
     private val TICKET_PRICE = 1000
+
     private val viewService = ViewService()
     private val userService = UserService()
     private val gameService = GameService()
 
     fun startGame(){
         viewService.showMoneyInputView()
-        val money = userService.buyLotto()
+        val money = userService.putMoney()
         val lottoList = userService.getLotto(money)
         val ticket = money.div(TICKET_PRICE)
         viewService.showTicketView(ticket)

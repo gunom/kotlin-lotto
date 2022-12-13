@@ -6,7 +6,7 @@ import lotto.domain.Lotto
 import kotlin.system.exitProcess
 
 class UserService {
-    fun buyLotto(): Long {
+    fun putMoney(): Long {
         return validate(Console.readLine())
     }
 
